@@ -47,13 +47,13 @@ Resultado esperado: `mode: mock`, `metricsSource: mock`, modelo `mock/educationa
 
 1. Crear clave en https://openrouter.ai/settings/keys y colocarla SOLO en `.env`.
 2. Revisar precio y límites en https://openrouter.ai/pricing y el router gratuito en https://openrouter.ai/openrouter/free.
-3. Cambiar `.env`: `AI_EXECUTION_MODE=openrouter`, `OPENROUTER_MODEL=openrouter/free`.
+3. Cambiar `.env`: `AI_EXECUTION_MODE=openrouter`, `OPENROUTER_MODEL=google/gemma-4-31b-it:free` (el ID debe terminar en `:free`).
 4. Reiniciar servidor con `npm run dev`.
 5. Consultar modelos: `npm run models:list` (consulta el catálogo vivo y muestra solo modelos con precios prompt/completion/request iguales a cero y salida text).
 6. Prueba SDK oficial: `npm run sdk:probe` (solicitud real; respeta límites de cuota).
 7. Probar `/api/v1/chat` con PowerShell como arriba.
 
-El router `openrouter/free` selecciona un modelo gratuito admitido, pero no estabiliza cuál. Para pruebas comparativas, elegir un ID concreto vigente del catálogo y ponerlo en `OPENROUTER_MODEL`; la API verificará tarifas antes de cada petición. Si deja de ser gratuito, responde `FREE_ONLY_VIOLATION` en vez de pasar a pago.
+`OPENROUTER_MODEL` debe ser un ID concreto vigente del catálogo con sufijo `:free` (el router `openrouter/free` se rechaza con `FREE_MODEL_REQUIRED`). La API verificará tarifas antes de cada petición. Si el modelo deja de figurar como gratuito, responde `FREE_MODEL_UNAVAILABLE` en vez de pasar a pago; elegir otro con `npm run models:list`.
 
 ## 4. Ollama local (opcional)
 
