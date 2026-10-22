@@ -17,7 +17,7 @@ const fixtureSchema = z.object({
 export async function generateMockAnswer(): Promise<AskResult> {
 
   const filePath = resolve(
-    process.cwd(),
+    process.cwd(),    
     'fixtures',
     'mock-response.json'
   );
